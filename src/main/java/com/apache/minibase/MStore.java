@@ -2,7 +2,7 @@ package com.apache.minibase;
 
 import java.io.IOException;
 
-public class MStore implements MiniBase{
+public class MStore implements MiniBase {
 
     @Override
     public void put(byte[] key, byte value) throws Exception {
@@ -22,5 +22,12 @@ public class MStore implements MiniBase{
     @Override
     public Iter<KeyValue> scan(byte[] startKey, byte[] stopKey) throws IOException {
         return null;
+    }
+
+    interface SeekIter<KeyValue> extends Iter<KeyValue> {
+        /**
+         * Seek to the smallest key value which is greater than or equals to the given key value
+         */
+        void seekTo(KeyValue kv) throws IOException;
     }
 }

@@ -21,9 +21,13 @@ public class Bytes {
 
     public static byte[] toBytes(int x) {
         byte[] b = new byte[4];
+        // 得到最低的8位
         b[3] = (byte) (x & 0xFF);
+        // 得到次低8位
         b[2] = (byte) ((x >> 8) & 0xFF);
+        // 得到次高8位
         b[1] = (byte) ((x >> 16) & 0xFF);
+        // 将整数右移24位，得到整数的最高8位
         b[0] = (byte) ((x >> 24) & 0xFF);
         return b;
     }
@@ -96,8 +100,9 @@ public class Bytes {
         if (key == null)
             return 0;
         int h = 1;
-        for (int i = 0; i < key.length; i++) {
-            h = (h << 5) + h + key[i];
+        // 遍历key的每个字节
+        for (byte b : key) {
+            h = (h << 5) + h + b;
         }
         return h;
     }
@@ -118,6 +123,4 @@ public class Bytes {
         }
         return a.length - b.length;
     }
-
-
 }
